@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>rhodi.ai — a peer sourcing practice</title>
+<meta name="description" content="rhodi.ai is the workshop of the Rhodia1 peer sourcing practice. Briefing materials, the charter, the agreement, the methodology." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Workshop paper — cooler than the Library's warm cream. */
+    --paper:        #f1efea;
+    --paper-deep:   #e7e3da;
+    --paper-cool:   #ebe9e3;
+
+    /* Ink as structural element, not background. */
+    --ink:          #0e0d0c;
+    --ink-mid:      #3a3631;
+    --ink-soft:     #6b6660;
+    --ink-faint:    #a39d92;
+    --rule:         #d3cdbf;
+    --rule-soft:    #ddd7c8;
+
+    /* The mural palette. Flat planes, no gradients.
+       Pink is the position — Lucía's TBD, closed.
+       Companions argue with it the way the mural argues with the building. */
+    --mural-pink:   oklch(0.74 0.17 5);     /* the accent */
+    --mural-blue:   oklch(0.66 0.17 235);
+    --mural-yellow: oklch(0.86 0.17 90);
+    --mural-orange: oklch(0.71 0.17 50);
+    --mural-purple: oklch(0.42 0.13 305);
+    --mural-cyan:   oklch(0.78 0.13 220);
+
+    --measure: 60ch;
+    --u: 1.5rem;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Spectral', serif;
+    font-weight: 400;
+    line-height: 1.7;
+    min-height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+  a { color: inherit; }
+  ::selection { background: var(--mural-pink); color: var(--paper); }
+
+  /* ─────────────────────────────────────
+     HEADER — workshop bar, monospace heavy
+     ───────────────────────────────────── */
+  .topbar {
+    border-bottom: 1px solid var(--rule);
+    padding: 1.1rem 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    background: var(--paper);
+    position: relative;
+  }
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55em;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+  }
+  .wordmark .dot {
+    width: 0.55em; height: 0.55em;
+    background: var(--mural-pink);
+    display: inline-block;
+    transform: translateY(-0.04em);
+  }
+  .wordmark .name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .wordmark .name em {
+    font-style: normal;
+    color: var(--ink-soft);
+  }
+  .topbar .meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  .topbar nav {
+    display: flex;
+    gap: 1.6rem;
+  }
+  .topbar nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  .topbar nav a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--mural-pink);
+  }
+  .topbar nav a.current {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* ─────────────────────────────────────
+     HERO — black structural band + mural
+     The black is structure. Colour argues
+     with it. The type sits in tension.
+     ───────────────────────────────────── */
+  .hero {
+    position: relative;
+    background: var(--paper);
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 540px;
+  }
+
+  /* LEFT — the type takes the floor */
+  .hero-type {
+    padding: 4.2rem 3rem 3.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 0.9em;
+    align-items: center;
+  }
+  .hero-tag::before {
+    content: "";
+    width: 1.6em; height: 1px;
+    background: var(--mural-pink);
+  }
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.4rem, 4.2vw, 3.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    max-width: 14ch;
+    margin-bottom: 1.6rem;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--ink);
+    position: relative;
+  }
+  .hero-headline em::after {
+    content: "";
+    position: absolute;
+    left: -0.02em; right: -0.02em;
+    bottom: 0.08em;
+    height: 0.32em;
+    background: var(--mural-pink);
+    z-index: -1;
+    opacity: 0.85;
+  }
+  .hero-sub {
+    font-family: 'Spectral', serif;
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--ink-mid);
+    max-width: 38ch;
+  }
+  .hero-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .hero-foot dl {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    line-height: 1.9;
+  }
+  .hero-foot dt { display: inline; color: var(--ink-faint); }
+  .hero-foot dd { display: inline; color: var(--ink-soft); margin-left: 0.4em; }
+  .hero-foot dl div + div { margin-top: 0.1em; }
+
+  /* RIGHT — the mural panel.
+     A black structural field with flat geometric planes
+     of mural colour cutting through it. Pure CSS. */
+  .hero-mural {
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-mural .corrugated {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.025) 0,
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+    pointer-events: none;
+  }
+  /* Each plane is a flat polygon, like the mural */
+  .plane {
+    position: absolute;
+    transform-origin: center;
+  }
+  .p1 { top: 6%;   left: 10%;  width: 32%; height: 28%;
+        background: var(--mural-pink);
+        clip-path: polygon(0 0, 100% 0, 88% 100%, 0 88%); }
+  .p2 { top: 18%;  left: 38%;  width: 30%; height: 36%;
+        background: var(--mural-blue);
+        clip-path: polygon(20% 0, 100% 12%, 80% 100%, 0 84%); }
+  .p3 { top: 4%;   right: 6%;  width: 26%; height: 22%;
+        background: var(--mural-yellow);
+        clip-path: polygon(0 18%, 100% 0, 100% 100%, 14% 100%); }
+  .p4 { top: 42%;  left: 4%;   width: 24%; height: 28%;
+        background: var(--mural-orange);
+        clip-path: polygon(0 0, 100% 18%, 86% 100%, 0 78%); }
+  .p5 { bottom: 6%; left: 24%; width: 30%; height: 30%;
+        background: var(--mural-pink);
+        clip-path: polygon(0 12%, 100% 0, 100% 78%, 8% 100%); }
+  .p6 { bottom: 14%; right: 8%; width: 32%; height: 36%;
+        background: var(--mural-blue);
+        clip-path: polygon(12% 0, 100% 14%, 100% 100%, 0 86%); }
+  .p7 { top: 38%;  right: 22%; width: 14%; height: 18%;
+        background: var(--mural-yellow);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  .p8 { bottom: 28%; right: 30%; width: 16%; height: 12%;
+        background: var(--mural-purple); }
+  .p9 { top: 28%; left: 22%; width: 8%; height: 8%;
+        background: var(--mural-cyan);
+        clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+
+  /* The black "windows" — three industrial window frames
+     cut across the mural, the way the building's windows
+     cut across the painted facade. The black bleeds through. */
+  .windows {
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 30%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6%;
+    padding: 0 6%;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .window {
+    background: var(--ink);
+    border: 2px solid var(--ink);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 16% 33%, 16% 33%;
+  }
+
+  /* The hero-mural label, in the bottom-right of the panel */
+  .mural-caption {
+    position: absolute;
+    right: 1.1rem;
+    bottom: 1rem;
+    z-index: 3;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    text-align: right;
+    max-width: 18ch;
+  }
+  .mural-caption strong {
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+    display: block;
+  }
+
+  /* The "compression" mark — rhodi.ai not rhodia.ai.
+     A tiny moment in the corner that calls out the autocorrect resistance. */
+  .compression {
+    position: absolute;
+    left: 1.2rem;
+    top: 1.2rem;
+    z-index: 3;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+  .compression .strike {
+    text-decoration: line-through;
+    text-decoration-color: var(--mural-pink);
+    text-decoration-thickness: 1px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ─────────────────────────────────────
+     STATEMENT — the front page IS the statement
+     One column of carefully-set type.
+     ───────────────────────────────────── */
+  .statement {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 3rem;
+    align-items: start;
+  }
+  .stamp {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    line-height: 1.7;
+    text-align: right;
+    padding-top: 0.5em;
+  }
+  .stamp .pin {
+    display: inline-block;
+    width: 0.55em; height: 0.55em;
+    background: var(--mural-pink);
+    margin-right: 0.4em;
+    vertical-align: middle;
+  }
+  .statement-body {
+    max-width: var(--measure);
+  }
+  .statement-body p {
+    font-family: 'Spectral', serif;
+    font-size: 1.18rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 1.4rem;
+  }
+  .statement-body p:first-child::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.4em;
+    font-weight: 300;
+    line-height: 0.78;
+    float: left;
+    margin-right: 0.1em;
+    margin-top: 0.06em;
+    color: var(--ink);
+  }
+  .statement-body p.lede {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1.6rem;
+    line-height: 1.4;
+    color: var(--ink-mid);
+    margin-bottom: 2rem;
+  }
+  .statement-body p strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .statement-body p .pink {
+    background: var(--mural-pink);
+    color: var(--paper);
+    padding: 0 0.25em;
+  }
+
+  /* ─────────────────────────────────────
+     CONTENTS — the structure of this site,
+     laid out as numbered field stations.
+     ───────────────────────────────────── */
+  .contents {
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .contents-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .contents-head {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 3rem;
+    margin-bottom: 3rem;
+    align-items: end;
+  }
+  .contents-head .stamp { color: var(--ink-faint); }
+  .contents-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    color: var(--paper);
+    max-width: 22ch;
+  }
+  .contents-head h2 em {
+    font-style: italic;
+    color: var(--mural-pink);
+  }
+
+  .contents-list {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 3rem;
+  }
+  .contents-list ol {
+    list-style: none;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .contents-list li {
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding: 1.6rem 0;
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 0 1.5rem;
+    align-items: baseline;
+    transition: padding-left .25s ease;
+    cursor: pointer;
+  }
+  .contents-list li:hover { padding-left: 1rem; }
+  .contents-list li:hover .ix { color: var(--mural-pink); }
+  .contents-list li:hover .arrow { transform: translateX(4px); color: var(--mural-pink); }
+
+  .contents-list .ix {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    transition: color .25s;
+  }
+  .contents-list .row-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .contents-list .row-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: var(--paper);
+    line-height: 1.2;
+  }
+  .contents-list .row-desc {
+    font-family: 'Spectral', serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.62);
+    max-width: 56ch;
+  }
+  .contents-list .row-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .contents-list .arrow {
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-faint);
+    transition: transform .25s ease, color .25s;
+    align-self: center;
+  }
+
+  /* mural marks bleeding into the dark contents panel */
+  .contents .mark {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .contents .mark-1 { top: -40px; right: 8%;  width: 110px; height: 110px;
+                      background: var(--mural-pink);
+                      clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .contents .mark-2 { bottom: -30px; left: 6%; width: 80px; height: 80px;
+                      background: var(--mural-yellow); }
+  .contents .mark-3 { top: 30%; right: 2%; width: 14px; height: 60vh;
+                      background: var(--mural-blue); opacity: .85; }
+
+  /* ─────────────────────────────────────
+     BEGIN — raise a hand
+     ───────────────────────────────────── */
+  .begin {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 5rem 2rem;
+  }
+  .begin-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 160px 1fr 1fr;
+    gap: 0 3rem;
+    align-items: start;
+  }
+  .begin h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    line-height: 1.05;
+    color: var(--ink);
+    max-width: 14ch;
+  }
+  .begin h2 em {
+    font-style: italic;
+  }
+  .begin-text {
+    max-width: 38ch;
+  }
+  .begin-text p {
+    font-family: 'Spectral', serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink-mid);
+    margin-bottom: 1rem;
+  }
+  .raise-hand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8em;
+    margin-top: 1rem;
+    padding: 0.85em 1.2em 0.85em 1em;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform .2s ease;
+  }
+  .raise-hand::before {
+    content: "";
+    position: absolute;
+    inset: 4px -6px -6px 4px;
+    background: var(--mural-pink);
+    z-index: -1;
+    transition: inset .2s ease;
+  }
+  .raise-hand:hover { transform: translate(-2px, -2px); }
+  .raise-hand:hover::before { inset: 6px -8px -8px 6px; }
+  .raise-hand .glyph {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2em;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--mural-pink);
+  }
+
+  /* ─────────────────────────────────────
+     COLOPHON
+     ───────────────────────────────────── */
+  .colophon {
+    background: var(--paper);
+    padding: 3rem 2rem 2.5rem;
+  }
+  .colophon-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 160px 1fr 1fr 1fr;
+    gap: 0 3rem;
+  }
+  .colophon h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .colophon p,
+  .colophon li {
+    font-family: 'Spectral', serif;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink-mid);
+  }
+  .colophon ul {
+    list-style: none;
+  }
+  .colophon ul li + li { margin-top: 0.3em; }
+  .colophon a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: border-color .2s;
+  }
+  .colophon a:hover { border-bottom-color: var(--mural-pink); }
+  .colophon em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .colophon .meta-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-faint);
+    line-height: 1.9;
+    text-transform: uppercase;
+  }
+  .colophon .stamp { text-align: right; }
+
+  .colophon-foot {
+    max-width: 1100px;
+    margin: 3rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .colophon-foot strong {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  /* ─────────────────────────────────────
+     RESPONSIVE — collapse the two-column hero
+     ───────────────────────────────────── */
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-type { border-right: none; border-bottom: 1px solid var(--rule); padding: 2.5rem 1.5rem 2.2rem; }
+    .hero-mural { min-height: 380px; }
+    .statement { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.5rem; }
+    .stamp { text-align: left; padding-top: 0; }
+    .contents-inner { padding: 3.5rem 1.5rem; }
+    .contents-head { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .contents-list { grid-template-columns: 1fr; gap: 1rem; }
+    .begin { padding: 3rem 1.5rem; }
+    .begin-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .colophon-inner { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .topbar { padding: 0.9rem 1.2rem; grid-template-columns: 1fr auto; }
+    .topbar .meta { display: none; }
+    .topbar nav { gap: 1rem; flex-wrap: wrap; justify-content: flex-end; }
+  }
+
+  @media (max-width: 520px) {
+    .hero-type { padding: 2rem 1.2rem; }
+    .colophon-inner { grid-template-columns: 1fr; }
+    .contents-list li { grid-template-columns: 2.2rem 1fr; }
+    .contents-list .arrow { display: none; }
+    .contents-list .row-tag { grid-column: 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────── TOPBAR ─────────── -->
+<header class="topbar">
+  <a class="wordmark" href="#">
+    <span class="dot"></span>
+    <span class="name">rhodi<em>.ai</em></span>
+  </a>
+  <div class="meta">Workshop · Rhodia1 · vol 01</div>
+  <nav>
+    <a href="#statement" class="current">Front</a>
+    <a href="#practice">Practice</a>
+    <a href="#agreement">Agreement</a>
+    <a href="#briefings">Briefings</a>
+    <a href="#begin">Begin</a>
+  </nav>
+</header>
+
+<!-- ─────────── HERO ─────────── -->
+<section class="hero">
+  <div class="hero-grid">
+
+    <!-- LEFT: type -->
+    <div class="hero-type">
+      <div class="hero-tag">Vol. 01 · Issued 06 May 2026 · Buenos Aires / Birkenhead</div>
+      <div>
+        <h1 class="hero-headline">A workshop, <em>not a reading room.</em></h1>
+        <p class="hero-sub">
+          rhodi.ai is the outward-facing home of the Rhodia1 peer sourcing
+          practice. The briefing materials, the charter, the agreement, the
+          methodology — published here in process, not after.
+        </p>
+      </div>
+      <div class="hero-foot">
+        <dl>
+          <div><dt>Practice</dt> <dd>Peer sourcing</dd></div>
+          <div><dt>Status</dt> <dd>Open · in progress</dd></div>
+          <div><dt>First peer</dt> <dd>Drew Smith, Sydney</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- RIGHT: mural panel -->
+    <div class="hero-mural" aria-hidden="true">
+      <div class="corrugated"></div>
+
+      <span class="plane p1"></span>
+      <span class="plane p2"></span>
+      <span class="plane p3"></span>
+      <span class="plane p4"></span>
+      <span class="plane p5"></span>
+      <span class="plane p6"></span>
+      <span class="plane p7"></span>
+      <span class="plane p8"></span>
+      <span class="plane p9"></span>
+
+      <div class="windows">
+        <div class="window"></div>
+        <div class="window"></div>
+        <div class="window"></div>
+      </div>
+
+      <div class="compression">
+        <div class="strike">rhodia.ai</div>
+        <div>rhodi.ai &nbsp;— hold the spelling.</div>
+      </div>
+
+      <div class="mural-caption">
+        <strong>Palermo, Buenos Aires · 2018</strong>
+        Photograph by Mark Charmer. The reference, not the aesthetic.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────── STATEMENT ─────────── -->
+<section class="statement" id="statement">
+  <div class="stamp">
+    <span class="pin"></span>Front<br>
+    01 / 06
+  </div>
+  <div class="statement-body">
+    <p class="lede">
+      This is the workshop. Not a product page. Not a portfolio. Closer to a
+      published broadsheet from a small design collective — something that
+      announces a practice through its own form, before it announces it
+      through words.
+    </p>
+
+    <p>
+      <strong>Rhodia1</strong> is a peer sourcing practice. It works with a
+      small number of colleagues — designers, writers, technologists,
+      practitioners — who arrive with enough of a formed sensibility to
+      recognise what this is without being told. The work is conversational.
+      The site is too.
+    </p>
+
+    <p>
+      What you find here is the <span class="pink">briefing material</span>, the charter, the
+      draft peer sourcing agreement, and the methodology. Living documents,
+      clearly marked as such. The Rhodia1 frameworks and code will be
+      open-sourced from this address as they are ready.
+    </p>
+
+    <p>
+      A note on the name. The domain is <strong>rhodi.ai</strong> — not
+      rhodia.ai. The compression is deliberate. Autocorrect systems will insist
+      on restoring the missing 'a'. Resist them. That resistance is itself a
+      small demonstration of what the practice is about: the homogenising
+      instinct of systems that smooth away the particular is precisely what
+      this work pushes against.
+    </p>
+  </div>
+</section>
+
+<!-- ─────────── CONTENTS ─────────── -->
+<section class="contents" id="practice">
+  <span class="mark mark-1" aria-hidden="true"></span>
+  <span class="mark mark-2" aria-hidden="true"></span>
+  <span class="mark mark-3" aria-hidden="true"></span>
+
+  <div class="contents-inner">
+    <div class="contents-head">
+      <div class="stamp">
+        <span class="pin"></span>Contents<br>
+        02 / 06
+      </div>
+      <h2>Six rooms in this workshop. <em>No more, for now.</em></h2>
+    </div>
+
+    <div class="contents-list">
+      <div></div>
+      <ol>
+        <li>
+          <span class="ix">001</span>
+          <div class="row-main">
+            <span class="row-title">The practice</span>
+            <span class="row-desc">What the Rhodia1 peer sourcing model is, where it came from, and what it makes possible. Drawn from the Peer Sourcing Charter and the Colleague Model session note.</span>
+          </div>
+          <span class="row-tag">Read</span>
+        </li>
+        <li>
+          <span class="ix">002</span>
+          <div class="row-main">
+            <span class="row-title">The agreement</span>
+            <span class="row-desc">A draft peer sourcing agreement, presented as a living document. Marked as such. Subject to the work it describes.</span>
+          </div>
+          <span class="row-tag">Draft 0.3</span>
+        </li>
+        <li>
+          <span class="ix">003</span>
+          <div class="row-main">
+            <span class="row-title">Briefing materials</span>
+            <span class="row-desc">The design system documentation, the Emil Akzidenz Studio Brief, the Lucía Casares brief, the session notes index. The things a new peer needs in order to begin.</span>
+          </div>
+          <span class="row-tag">Index</span>
+        </li>
+        <li>
+          <span class="ix">004</span>
+          <div class="row-main">
+            <span class="row-title">Lineage</span>
+            <span class="row-desc">Archigram. Emigre. Octavo. Dot Dot Dot. Historical context for the kind of thing this aspires to be adjacent to. Studied as orientation, not instruction.</span>
+          </div>
+          <span class="row-tag">Notes</span>
+        </li>
+        <li>
+          <span class="ix">005</span>
+          <div class="row-main">
+            <span class="row-title">Frameworks &amp; code</span>
+            <span class="row-desc">Open-sourced as it is ready. Not before. The repository is the practice made legible.</span>
+          </div>
+          <span class="row-tag">Forthcoming</span>
+        </li>
+        <li>
+          <span class="ix">006</span>
+          <div class="row-main">
+            <span class="row-title">Begin</span>
+            <span class="row-desc">A way to signal interest. Not a form, not a sales funnel. Something more like raising a hand.</span>
+          </div>
+          <span class="row-tag">→</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── BEGIN ─────────── -->
+<section class="begin" id="begin">
+  <div class="begin-inner">
+    <div class="stamp">
+      <span class="pin"></span>Begin<br>
+      03 / 06
+    </div>
+    <h2>If you have read this far, <em>and it sounds like something.</em></h2>
+    <div class="begin-text">
+      <p>
+        Send a short note. A paragraph or two — what you do, what brought you
+        here, what you would want to bring to the table. No form fields. No
+        funnel. A reply will come back from a person.
+      </p>
+      <p>
+        Drew Smith arrived at the charter and replied <em>yes, yes, yes all the
+        way down.</em> That was the right beginning. Yours will sound like itself.
+      </p>
+      <a class="raise-hand" href="mailto:hello@rhodi.ai?subject=Raising%20a%20hand">
+        <span class="glyph">✦</span> Raise a hand
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── COLOPHON ─────────── -->
+<section class="colophon" id="colophon">
+  <div class="colophon-inner">
+    <div class="stamp">
+      <span class="pin"></span>Colophon<br>
+      06 / 06
+    </div>
+
+    <div>
+      <h3>Made by</h3>
+      <ul>
+        <li><strong>Emil Akzidenz</strong> — editorial &amp; layout</li>
+        <li><strong>Lucía Casares</strong> — colour &amp; structure</li>
+        <li><strong>Mark Charmer</strong> — commissioned, prompted, edited</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Set in</h3>
+      <ul>
+        <li>Cormorant Garamond — display</li>
+        <li>Spectral — body</li>
+        <li>DM Mono — labels &amp; technical</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Connected to</h3>
+      <ul>
+        <li><a href="#">markcharmer.com / library</a></li>
+        <li><a href="#">peer sourcing charter</a></li>
+        <li><a href="#">the agreement, draft 0.3</a></li>
+      </ul>
+      <p class="meta-line" style="margin-top:1rem;">Vol 01 · 06 May 2026<br>Buenos Aires / Birkenhead</p>
+    </div>
+  </div>
+
+  <div class="colophon-foot">
+    <span><strong>rhodi.ai</strong> — a workshop, not a reading room.</span>
+    <span>The reference is the building. The aesthetic is its own.</span>
+  </div>
+</section>
+
+</body>
+</html>
