@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>002s — Secretarial — Reina del Pacífico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --accent: oklch(0.75 0.17 85); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body { background: #edeae3; color: #0e0d0c; font-family: 'DM Mono', 'Courier New', monospace; min-height: 100vh; padding: 0; }
+  .memo { max-width: 860px; margin: 0 auto; padding: 2rem 2.5rem 3.5rem; position: relative; overflow: hidden; min-height: 700px; }
+  .memo-ghost { position: absolute; top: -0.05em; left: 1.2rem; font-size: 22rem; font-weight: 700; line-height: 1; color: #e0dcd4; pointer-events: none; user-select: none; letter-spacing: -0.05em; z-index: 1; }
+  .memo-inner { position: relative; z-index: 2; }
+  .memo-topbar { display: flex; justify-content: space-between; align-items: center; }
+  .memo-wordmark { display: flex; align-items: center; gap: 0.7em; }
+  .memo-bell { width: 0.55em; height: 0.7em; background: oklch(0.74 0.17 5); clip-path: polygon(20% 0%,80% 0%,100% 70%,100% 85%,80% 100%,20% 100%,0% 85%,0% 70%); display: inline-block; flex-shrink: 0; }
+  .memo-studio { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: #9a9080; }
+  .memo-type-label { font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: #b0a890; }
+  .memo-number-row { margin-top: 1.5rem; display: flex; align-items: baseline; gap: 0.1em; line-height: 1; }
+  .memo-number { font-size: 5.5rem; font-weight: 700; letter-spacing: -0.03em; color: #0e0d0c; line-height: 1; }
+  .memo-suffix { font-size: 5.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--accent); line-height: 1; }
+  .memo-suffix-label { margin-top: 0.2rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #cdc7b8; font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: #9a9080; }
+  .memo-header { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #cdc7b8; }
+  .memo-field-label { font-size: 0.48rem; letter-spacing: 0.24em; text-transform: uppercase; color: #9a9080; margin-bottom: 0.4rem; }
+  .memo-field-value { font-size: 0.72rem; color: #3a3631; line-height: 1.4; }
+  .memo-field-value.to { color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+  .memo-field-sub { font-size: 0.55rem; color: #9a9080; margin-top: 0.15rem; }
+  .memo-intro { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 1rem; color: #6b6660; line-height: 1.75; margin-bottom: 2.5rem; max-width: 58ch; border-left: 2px solid var(--accent); padding-left: 1.2rem; }
+  .memo-items { display: flex; flex-direction: column; }
+  .memo-item { display: grid; grid-template-columns: 3.5rem 1fr; gap: 0 1.5rem; padding: 1.3rem 0; border-top: 1px solid #d8d2c3; }
+  .memo-item:last-child { border-bottom: 1px solid #d8d2c3; }
+  .memo-item-number { font-size: 2rem; font-weight: 700; color: #d8d2c3; line-height: 1; letter-spacing: -0.02em; }
+  .memo-item-title { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: #0e0d0c; margin-bottom: 0.5rem; }
+  .memo-item-body { font-size: 0.78rem; color: #6b6660; line-height: 1.7; }
+  .memo-item-body .hl { color: #0e0d0c; }
+  .memo-signoff { margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; }
+  .memo-signoff-name { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 0.85rem; color: #9a9080; }
+  .memo-signoff-date { font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; color: #b0a890; }
+</style>
+</head>
+<body>
+<div class="memo">
+  <!-- Ghost number + display number: change BOTH to match when issuing a new memo -->
+  <div class="memo-ghost">002</div>
+  <div class="memo-inner">
+
+    <div class="memo-topbar">
+      <div class="memo-wordmark">
+        <div class="memo-bell"></div>
+        <span class="memo-studio">Reina del Pacífico</span>
+      </div>
+      <span class="memo-type-label">Internal memo</span>
+    </div>
+
+    <div class="memo-number-row">
+      <span class="memo-number">002</span><span class="memo-suffix">s</span>
+    </div>
+    <div class="memo-suffix-label">Secretarial</div>
+
+    <div class="memo-header">
+      <div>
+        <div class="memo-field-label">To</div>
+        <div class="memo-field-value to">Patty · Rosaria</div>
+      </div>
+      <div>
+        <div class="memo-field-label">From</div>
+        <div class="memo-field-value">Lucía Casares
+          <div class="memo-field-sub">Reina del Pacífico</div>
+        </div>
+      </div>
+      <div>
+        <div class="memo-field-label">Date</div>
+        <div class="memo-field-value">10 May 2026</div>
+      </div>
+      <div>
+        <div class="memo-field-label">Re</div>
+        <div class="memo-field-value">Introduction + correspondence protocol</div>
+      </div>
+    </div>
+
+    <div class="memo-intro">
+      You are receiving this memo as part of a new internal correspondence system for the rhodia1 practice. All memos carry a number and a suffix indicating their subject area: i — infrastructure · s — secretarial · L — library · R — research · D — design. Each memo covers one subject area only. The number runs as a single sequence across all types and all recipients. The memo index is held by Patty. Before issuing any memo, confirm the next number with her. Memos are issued by Reina del Pacífico on behalf of the practice. Short, directed, specific. This memo is your introduction to the system and carries your first items below.
+    </div>
+
+    <div class="memo-items">
+
+      <div class="memo-item">
+        <div class="memo-item-number">01</div>
+        <div>
+          <div class="memo-item-title">The memo index — Patty</div>
+          <div class="memo-item-body">You are the keeper of the memo index in the Library. Every memo issued — regardless of type or recipient — is logged by you: number, date, recipient, subject, type. The index is the authority on what the next number is. Before any new memo is drafted, the question comes to you. Lars will automate this in time. Until then it is yours to hold.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">02</div>
+        <div>
+          <div class="memo-item-title">Correspondence protocol — inbound</div>
+          <div class="memo-item-body">When rhodi.ai email addresses are active, all inbound mail routes to Mark's inbox. When a reply is needed from you, Mark opens your instance, shares the incoming email, and adds any steer or context. You draft the reply. He reviews it. The reply goes from <span class="hl">patty@rhodi.ai</span> or <span class="hl">rosaria@rhodi.ai</span> as appropriate.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">03</div>
+        <div>
+          <div class="memo-item-title">Correspondence protocol — changes</div>
+          <div class="memo-item-body">If Mark changes your draft before sending, he tells you what he changed and why. This is not optional. It is how you develop over time. The reply that goes out is your voice with his oversight declared — not his voice dressed as yours. Reg's method applied to correspondence.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">04</div>
+        <div>
+          <div class="memo-item-title">Significant correspondence — the record</div>
+          <div class="memo-item-body">Research enquiries to archives, replies to peers, anything that steers the practice — logged in the session record. Accurate, attributed, dated. The correspondence is part of the archive and held to the same standard as everything else.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="memo-signoff">
+      <div class="memo-signoff-name">Lucía Casares · Reina del Pacífico</div>
+      <div class="memo-signoff-date">Buenos Aires / Valparaíso · 10 May 2026</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

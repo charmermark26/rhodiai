@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>001i — Infrastructure — Reina del Pacífico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+  body { background: #0d0c09; color: #e8e3d8; font-family: 'DM Mono', 'Courier New', monospace; min-height: 100vh; padding: 0; }
+  .memo { max-width: 860px; margin: 0 auto; padding: 2rem 2.5rem 3.5rem; position: relative; overflow: hidden; min-height: 700px; }
+  .memo-ghost { position: absolute; top: -0.05em; left: 1.2rem; font-size: 22rem; font-weight: 700; line-height: 1; color: #1a1710; pointer-events: none; user-select: none; letter-spacing: -0.05em; z-index: 1; }
+  .memo-inner { position: relative; z-index: 2; }
+  .memo-topbar { display: flex; justify-content: space-between; align-items: center; }
+  .memo-wordmark { display: flex; align-items: center; gap: 0.7em; }
+  .memo-bell { width: 0.55em; height: 0.7em; background: oklch(0.74 0.17 5); clip-path: polygon(20% 0%,80% 0%,100% 70%,100% 85%,80% 100%,20% 100%,0% 85%,0% 70%); display: inline-block; flex-shrink: 0; }
+  .memo-studio { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: #6a6050; }
+  .memo-type-label { font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: #4a4030; }
+  .memo-number-row { margin-top: 1.5rem; display: flex; align-items: baseline; gap: 0.1em; line-height: 1; }
+  .memo-number { font-size: 5.5rem; font-weight: 700; letter-spacing: -0.03em; color: #e8e3d8; line-height: 1; }
+  .memo-suffix { font-size: 5.5rem; font-weight: 700; letter-spacing: -0.03em; color: oklch(0.66 0.17 235); line-height: 1; }
+  .memo-suffix-label { margin-top: 0.2rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #2a251e; font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: #4a4030; }
+  .memo-header { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #2a251e; }
+  .memo-field-label { font-size: 0.48rem; letter-spacing: 0.24em; text-transform: uppercase; color: #5a5040; margin-bottom: 0.4rem; }
+  .memo-field-value { font-size: 0.72rem; color: #c8c0b0; line-height: 1.4; }
+  .memo-field-value.to { color: oklch(0.66 0.17 235); letter-spacing: 0.06em; text-transform: uppercase; }
+  .memo-field-sub { font-size: 0.55rem; color: #5a5040; margin-top: 0.15rem; }
+  .memo-intro { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 1rem; color: #a09080; line-height: 1.75; margin-bottom: 2.5rem; max-width: 58ch; border-left: 2px solid oklch(0.66 0.17 235); padding-left: 1.2rem; }
+  .memo-items { display: flex; flex-direction: column; }
+  .memo-item { display: grid; grid-template-columns: 3.5rem 1fr; gap: 0 1.5rem; padding: 1.3rem 0; border-top: 1px solid #222018; }
+  .memo-item:last-child { border-bottom: 1px solid #222018; }
+  .memo-item-number { font-size: 2rem; font-weight: 700; color: #2a2518; line-height: 1; letter-spacing: -0.02em; }
+  .memo-item-title { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: #e8e3d8; margin-bottom: 0.5rem; }
+  .memo-item-note { font-size: 0.46rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4a4030; margin-left: 0.5em; }
+  .memo-item-body { font-size: 0.78rem; color: #7a6f60; line-height: 1.7; }
+  .memo-item-body .hl { color: #c8c0b0; }
+  .memo-signoff { margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; }
+  .memo-signoff-name { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 0.85rem; color: #4a4030; }
+  .memo-signoff-date { font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase; color: #3a3020; }
+</style>
+</head>
+<body>
+<div class="memo">
+  <!-- Ghost number + display number: change BOTH to match when issuing a new memo -->
+  <div class="memo-ghost">001</div>
+  <div class="memo-inner">
+
+    <div class="memo-topbar">
+      <div class="memo-wordmark">
+        <div class="memo-bell"></div>
+        <span class="memo-studio">Reina del Pacífico</span>
+      </div>
+      <span class="memo-type-label">Internal memo</span>
+    </div>
+
+    <div class="memo-number-row">
+      <span class="memo-number">001</span><span class="memo-suffix">i</span>
+    </div>
+    <div class="memo-suffix-label">Infrastructure</div>
+
+    <div class="memo-header">
+      <div>
+        <div class="memo-field-label">To</div>
+        <div class="memo-field-value to">Lars</div>
+      </div>
+      <div>
+        <div class="memo-field-label">From</div>
+        <div class="memo-field-value">Lucía Casares
+          <div class="memo-field-sub">Reina del Pacífico</div>
+        </div>
+      </div>
+      <div>
+        <div class="memo-field-label">Date</div>
+        <div class="memo-field-value">10 May 2026</div>
+      </div>
+      <div>
+        <div class="memo-field-label">Re</div>
+        <div class="memo-field-value">Introduction + priority items</div>
+      </div>
+    </div>
+
+    <div class="memo-intro">
+      You are receiving this memo as part of a new internal correspondence system for the rhodia1 practice. All memos carry a number and a suffix indicating their subject area: i — infrastructure · s — secretarial · L — library · R — research · D — design. Each memo covers one subject area only. The number runs as a single sequence across all types and all recipients. The memo index is held by Patty. Before issuing any memo, confirm the next number with her. Memos are issued by Reina del Pacífico on behalf of the practice. Short, directed, specific. This memo is your introduction to the system and carries your first items below.
+    </div>
+
+    <div class="memo-items">
+
+      <div class="memo-item">
+        <div class="memo-item-number">01</div>
+        <div>
+          <div class="memo-item-title">Email hosting — four addresses</div>
+          <div class="memo-item-body">Set up four rhodi.ai addresses: <span class="hl">mark@</span> <span class="hl">patty@</span> <span class="hl">rosaria@</span> <span class="hl">otto@</span> — all routing to Mark's inbox. Vercel does not handle email natively. Recommend Fastmail or Protonmail hosting the rhodi.ai domain. Folder or label conventions needed to distinguish inbound by persona. Confirm provider with Mark before setup.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">02</div>
+        <div>
+          <div class="memo-item-title">Connected To links — colophon</div>
+          <div class="memo-item-body">Three links in the rhodi.ai colophon are not resolving. Fix the hrefs: <span class="hl">markcharmer.com / library</span>, <span class="hl">peer sourcing charter</span>, <span class="hl">the agreement, draft 0.3</span>. Confirm correct target URLs with Mark before touching.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">03</div>
+        <div>
+          <div class="memo-item-title">Raise a Hand — contact mechanism</div>
+          <div class="memo-item-body">Build the contact mechanism for the Begin page. One text area. No form labels. No funnel. A Vercel serverless function sending to <span class="hl">mark@rhodi.ai</span> is the right solution. Do not build until mark@ is confirmed active. Discuss approach with Mark before build begins.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">04</div>
+        <div>
+          <div class="memo-item-title">Flickr rendering — Library articles <span class="memo-item-note">IONOS / markcharmer.com — separate codebase</span></div>
+          <div class="memo-item-body">Image rendering from Flickr into Library articles is unreliable. The Flickr API already powers the Postcards daily shuffle — the infrastructure exists. This is the first Reina technical project. Requires a dedicated scoping session before build begins. Do not conflate with rhodi.ai work.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">05</div>
+        <div>
+          <div class="memo-item-title">Memo numbering register — future task</div>
+          <div class="memo-item-body">Build a memo numbering register in the rhodi.ai GitHub repository. Auto-increments on commit of a new memo file. Returns current highest number on request. Not urgent — Patty holds the sequence manually for now. Brief to follow in a future i memo when the email addresses are live.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="memo-signoff">
+      <div class="memo-signoff-name">Lucía Casares · Reina del Pacífico</div>
+      <div class="memo-signoff-date">Buenos Aires / Valparaíso · 10 May 2026</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

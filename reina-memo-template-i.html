@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reina [NUMBER]i — Infrastructure — Reina del Pacífico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── Reina memo · Infrastructure (i) · Dark ground ── */
+  /* Accent: none — dark ground is the signal             */
+  /* Subject line: max 40 characters                      */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+
+  body {
+    background: #0d0c09;
+    color: #e8e3d8;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .memo {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 700px;
+  }
+
+  /* Ghost number — background */
+  .memo-ghost {
+    position: absolute;
+    top: -0.05em;
+    left: 1.2rem;
+    font-size: 22rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #1a1710;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+    z-index: 1;
+  }
+
+  .memo-inner { position: relative; z-index: 2; }
+
+  /* Topbar */
+  .memo-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .memo-wordmark {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+  }
+  .memo-bell {
+    width: 0.55em;
+    height: 0.7em;
+    background: oklch(0.74 0.17 5);
+    clip-path: polygon(20% 0%,80% 0%,100% 70%,100% 85%,80% 100%,20% 100%,0% 85%,0% 70%);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .memo-studio {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #6a6050;
+  }
+  .memo-type-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #4a4030;
+  }
+
+  /* Number display */
+  .memo-number-row {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.1em;
+    line-height: 1;
+  }
+  .memo-number {
+    font-size: 5.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #e8e3d8;
+    line-height: 1;
+  }
+  .memo-suffix {
+    font-size: 5.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    /* Infrastructure: blue accent on dark */
+    color: oklch(0.66 0.17 235);
+    line-height: 1;
+  }
+
+  /* Suffix label */
+  .memo-suffix-label {
+    margin-top: 0.2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #2a251e;
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #4a4030;
+  }
+
+  /* Header grid */
+  .memo-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #2a251e;
+  }
+  .memo-header-field { }
+  .memo-field-label {
+    font-size: 0.48rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #5a5040;
+    margin-bottom: 0.4rem;
+  }
+  .memo-field-value {
+    font-size: 0.72rem;
+    color: #c8c0b0;
+    line-height: 1.4;
+  }
+  .memo-field-value.to {
+    /* Infrastructure: blue for recipient name */
+    color: oklch(0.66 0.17 235);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .memo-field-sub {
+    font-size: 0.55rem;
+    color: #5a5040;
+    margin-top: 0.15rem;
+  }
+
+  /* Intro note */
+  .memo-intro {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: #a09080;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    max-width: 58ch;
+    border-left: 2px solid oklch(0.66 0.17 235);
+    padding-left: 1.2rem;
+  }
+
+  /* Items */
+  .memo-items { display: flex; flex-direction: column; }
+  .memo-item {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0 1.5rem;
+    padding: 1.3rem 0;
+    border-top: 1px solid #222018;
+  }
+  .memo-item:last-child { border-bottom: 1px solid #222018; }
+  .memo-item-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2a2518;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .memo-item-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e8e3d8;
+    margin-bottom: 0.5rem;
+  }
+  .memo-item-body {
+    font-size: 0.78rem;
+    color: #7a6f60;
+    line-height: 1.7;
+  }
+  .memo-item-body span.hl { color: #c8c0b0; }
+
+  /* Sign-off */
+  .memo-signoff {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .memo-signoff-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: #4a4030;
+  }
+  .memo-signoff-date {
+    font-size: 0.48rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #3a3020;
+  }
+</style>
+</head>
+<body>
+<div class="memo">
+
+  <!-- Ghost number + display number: change BOTH to match when issuing a new memo -->
+  <div class="memo-ghost">[NUMBER]</div>
+
+  <div class="memo-inner">
+
+    <!-- Topbar -->
+    <div class="memo-topbar">
+      <div class="memo-wordmark">
+        <div class="memo-bell"></div>
+        <span class="memo-studio">Reina del Pacífico</span>
+      </div>
+      <span class="memo-type-label">Internal memo</span>
+    </div>
+
+    <!-- Number -->
+    <div class="memo-number-row">
+      <span class="memo-number">[NUMBER]</span><span class="memo-suffix">i</span>
+    </div>
+    <div class="memo-suffix-label">Infrastructure</div>
+
+    <!-- Header -->
+    <div class="memo-header">
+      <div class="memo-header-field">
+        <div class="memo-field-label">To</div>
+        <div class="memo-field-value to">Lars</div>
+      </div>
+      <div class="memo-header-field">
+        <div class="memo-field-label">From</div>
+        <div class="memo-field-value">Lucía Casares
+          <div class="memo-field-sub">Reina del Pacífico</div>
+        </div>
+      </div>
+      <div class="memo-header-field">
+        <div class="memo-field-label">Date</div>
+        <div class="memo-field-value">[Date]</div>
+      </div>
+      <div class="memo-header-field">
+        <div class="memo-field-label">Re</div>
+        <!-- Max 40 characters -->
+        <div class="memo-field-value">[Subject — max 40 chars]</div>
+      </div>
+    </div>
+
+    <!-- Intro note (one or two sentences — directed, not bureaucratic) -->
+    <div class="memo-intro">
+      [Opening note. The context Lars needs before the items. One or two sentences. Specific and direct.]
+    </div>
+
+    <!-- Items -->
+    <div class="memo-items">
+
+      <div class="memo-item">
+        <div class="memo-item-number">01</div>
+        <div>
+          <div class="memo-item-title">[Item title]</div>
+          <div class="memo-item-body">[Item detail. Specific. What Lars needs to know and what he needs to do. Use <span class="hl">span.hl</span> for key terms, file names, URLs.]</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">02</div>
+        <div>
+          <div class="memo-item-title">[Item title]</div>
+          <div class="memo-item-body">[Item detail.]</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">03</div>
+        <div>
+          <div class="memo-item-title">[Item title]</div>
+          <div class="memo-item-body">[Item detail.]</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sign-off -->
+    <div class="memo-signoff">
+      <div class="memo-signoff-name">Lucía Casares · Reina del Pacífico</div>
+      <div class="memo-signoff-date">Buenos Aires / Valparaíso · [Date]</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
