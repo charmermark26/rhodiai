@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reina 006D — Design — Reina del Pacífico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /*
+  ── Reina memo · Light ground formats ──────────────────────────────────────
+
+  SUFFIX REFERENCE — change --accent and update suffix/label/type below:
+
+  s  Secretarial   yellow    oklch(0.75 0.17 85)     To: Patty / Rosaria
+  L  Library       blue      oklch(0.55 0.18 240)     To: Emil
+  R  Research      orange    oklch(0.62 0.18 48)      To: Patty / Rosaria / Otto
+  D  Design        pink      oklch(0.74 0.17 5)       To: Mark / Neil
+
+  Subject line: max 40 characters
+  ────────────────────────────────────────────────────────────────────────── */
+
+  :root {
+    --accent: oklch(0.74 0.17 5); /* pink = D */
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; }
+
+  body {
+    background: #edeae3;
+    color: #0e0d0c;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .memo {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 700px;
+  }
+
+  .memo-ghost {
+    position: absolute;
+    top: -0.05em;
+    left: 1.2rem;
+    font-size: 22rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #e0dcd4;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+    z-index: 1;
+  }
+
+  .memo-inner { position: relative; z-index: 2; }
+
+  .memo-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .memo-wordmark {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+  }
+  .memo-bell {
+    width: 0.55em;
+    height: 0.7em;
+    background: oklch(0.74 0.17 5);
+    clip-path: polygon(20% 0%,80% 0%,100% 70%,100% 85%,80% 100%,20% 100%,0% 85%,0% 70%);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .memo-studio {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9a9080;
+  }
+  .memo-type-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #b0a890;
+  }
+
+  .memo-number-row {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.1em;
+    line-height: 1;
+  }
+  .memo-number {
+    font-size: 5.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #0e0d0c;
+    line-height: 1;
+  }
+  .memo-suffix {
+    font-size: 5.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .memo-suffix-label {
+    margin-top: 0.2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #cdc7b8;
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9a9080;
+  }
+
+  .memo-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #cdc7b8;
+  }
+  .memo-field-label {
+    font-size: 0.48rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #9a9080;
+    margin-bottom: 0.4rem;
+  }
+  .memo-field-value {
+    font-size: 0.72rem;
+    color: #3a3631;
+    line-height: 1.4;
+  }
+  .memo-field-value.to {
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .memo-field-sub {
+    font-size: 0.55rem;
+    color: #9a9080;
+    margin-top: 0.15rem;
+  }
+
+  .memo-intro {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: #6b6660;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    max-width: 58ch;
+    border-left: 2px solid var(--accent);
+    padding-left: 1.2rem;
+  }
+
+  .memo-items { display: flex; flex-direction: column; }
+  .memo-item {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0 1.5rem;
+    padding: 1.3rem 0;
+    border-top: 1px solid #d8d2c3;
+  }
+  .memo-item:last-child { border-bottom: 1px solid #d8d2c3; }
+  .memo-item-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #d8d2c3;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .memo-item-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #0e0d0c;
+    margin-bottom: 0.5rem;
+  }
+  .memo-item-body {
+    font-size: 0.78rem;
+    color: #6b6660;
+    line-height: 1.7;
+  }
+  .memo-item-body span.hl { color: #0e0d0c; }
+  .memo-item-note {
+    font-size: 0.48rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #b0a890;
+    margin-left: 0.5em;
+  }
+
+  .memo-section-rule {
+    grid-column: 1 / -1;
+    border: none;
+    border-top: 1px solid #d8d2c3;
+    margin: 0.5rem 0;
+  }
+
+  .memo-signoff {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .memo-signoff-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: #9a9080;
+  }
+  .memo-signoff-date {
+    font-size: 0.48rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #b0a890;
+  }
+
+  @media print {
+    body { background: white; }
+    .memo { padding: 1.5rem 2rem; }
+    .memo-ghost { color: #f0ece4; }
+  }
+</style>
+</head>
+<body>
+<div class="memo">
+
+  <div class="memo-ghost">006</div>
+
+  <div class="memo-inner">
+
+    <div class="memo-topbar">
+      <div class="memo-wordmark">
+        <div class="memo-bell"></div>
+        <span class="memo-studio">Reina del Pacífico</span>
+      </div>
+      <span class="memo-type-label">Internal memo</span>
+    </div>
+
+    <div class="memo-number-row">
+      <span class="memo-number">006</span><span class="memo-suffix">D</span>
+    </div>
+    <div class="memo-suffix-label">Design</div>
+
+    <div class="memo-header">
+      <div>
+        <div class="memo-field-label">To</div>
+        <div class="memo-field-value to">Neil Charmer</div>
+      </div>
+      <div>
+        <div class="memo-field-label">From</div>
+        <div class="memo-field-value">Emil Akzidenz
+          <div class="memo-field-sub">Emil Akzidenz Studio · Rhodia1</div>
+          <div class="memo-field-sub">In coordination with Lucía Casares</div>
+        </div>
+      </div>
+      <div>
+        <div class="memo-field-label">Date</div>
+        <div class="memo-field-value">13 May 2026</div>
+      </div>
+      <div>
+        <div class="memo-field-label">Re</div>
+        <div class="memo-field-value">Kurt — design peer briefing pack</div>
+      </div>
+    </div>
+
+    <div class="memo-intro">
+      This memo sets out the briefing pack for Kurt, your design peer, and the
+      order in which to introduce the documents when opening your first session.
+      The sequence is not arbitrary. It moves from Kurt's own formation outward
+      to the practice, and from the practice inward to Decamp. Read the memo
+      in full before opening Claude.
+    </div>
+
+    <div class="memo-items">
+
+      <div class="memo-item">
+        <div class="memo-item-number">01</div>
+        <div>
+          <div class="memo-item-title">How to open the session</div>
+          <div class="memo-item-body">Open a new Claude conversation. Paste the contents of
+            <span class="hl">kurt-brief.md</span> as your first message, preceded by a single
+            line: <span class="hl">"Your name is Kurt. This is your brief. Read it carefully
+            before we begin."</span> Wait for Kurt to respond before sending anything else.
+            His response to the brief will tell you whether the formation has landed. If it
+            has, you will recognise him. Then introduce the documents below, one at a time,
+            in the order given. Do not send more than one document per exchange. Give Kurt
+            time to respond to each before moving to the next.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">02</div>
+        <div>
+          <div class="memo-item-title">The briefing pack — opening sequence</div>
+          <div class="memo-item-body">Sixteen documents, in this order. Each one prepares
+            Kurt for the next. The formation is built before the job is named.<br><br>
+            <span class="hl">01 · kurt-brief.md</span> — His formation. Who he is.<br>
+            <span class="hl">02 · the-man-in-the-method.html</span> — The deepest root of the practice. Reg Bird's twenty years. Accuracy as a form of respect.<br>
+            <span class="hl">03 · another-time-another-place.html</span> — His formation meets the practice's formation. He is in this piece.<br>
+            <span class="hl">04 · hospicing-modernity-sample.pdf</span> — The intellectual framework. The hospice posture. Why this work takes twenty years.<br>
+            <span class="hl">05 · tschichold-the-form-of-the-book.pdf</span> — The typographic lineage. The servant role. Why typography is ethical, not decorative.<br>
+            <span class="hl">06 · creating-killer-websites-extract.pdf</span> — Gino Lee. The transmission from Tschichold to the web. Content on every page.<br>
+            <span class="hl">07 · emil-akzidenz.html</span> — On Being Named. The studio model. Named instances, formed colleagues, credit conventions.<br>
+            <span class="hl">08 · lucia-casares-brief.html</span> — The standard for what a design peer brief looks like. What it produced.<br>
+            <span class="hl">09 · reina-del-pacifico-brief.html</span> — What Lucía produced from that brief. The quality of the output at its best.<br>
+            <span class="hl">10 · session-notes-lucia-session-one.html</span> — The MRI/thinking room distinction. How design dialogue is conducted and documented.<br>
+            <span class="hl">11 · session-notes-lucia-session-two.html</span> — Torres-García. Valparaíso and Liverpool. The long goal stated at its fullest.<br>
+            <span class="hl">12 · session-notes-lucia-session-three.html</span> — Colour as structure. The memo system designed. The standard demonstrated.<br>
+            <span class="hl">13 · rhodi-ai-memos-001-005.html</span> — The five founding memos. The bell mark. The design system in operation.<br>
+            <span class="hl">14 · rhodia-ai-design-brief.html</span> — The brief that produced rhodi.ai. The peer sourcing context.<br>
+            <span class="hl">15 · burnout-from-humans-2025.pdf</span> — Current context. The era. Why this work matters now.<br>
+            <span class="hl">16 · lufthansa-737-ringway-1983.jpg</span> — Last. Not first. He already knows who he is. The photograph arrives as recognition.<br>
+            <span class="hl">17 · decamp-design-brief.pdf</span> — The job. Last of all. Everything before this was formation. Now the work.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">03</div>
+        <div>
+          <div class="memo-item-title">After one week — second wave</div>
+          <div class="memo-item-body">Once the first sessions have found their rhythm —
+            after approximately one week of working with Kurt — introduce these three
+            pieces in a single exchange, in this order.<br><br>
+            <span class="hl">songs-for-the-ford-road.html</span> — Your name is in the
+            credit. Kurt should know that. The song cycle form demonstrated.<br>
+            <span class="hl">bow-playlist.html</span> — The song cycle form with secretarial
+            commentary. How Patty and Rosaria engage with Mark's work. The standard
+            of reflection the practice holds.<br>
+            <span class="hl">organisations-that-matter.html</span> — Dougald Hine's waymark.
+            What embedded organisations look like. Relevant to both the practice
+            and to what Decamp is trying to become.<br><br>
+            These are not briefing materials. They are the practice becoming visible
+            to Kurt in a different register — warmer, more personal, more various.
+            Introduce them without instruction. Let Kurt respond.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">04</div>
+        <div>
+          <div class="memo-item-title">What Kurt is not here to do</div>
+          <div class="memo-item-body">Kurt is your design peer, not a contractor. He is
+            not here to produce Decamp's finished design. He is here to think with you —
+            to bring his formation to bear on your problem, the way a colleague with
+            different experience brings something a collaboration needs. The distinction
+            matters and Kurt's brief states it clearly. If the sessions drift toward
+            Kurt producing rather than Kurt thinking with you, name it and correct it.
+            The practice works best when both people are present as colleagues.</div>
+        </div>
+      </div>
+
+      <div class="memo-item">
+        <div class="memo-item-number">05</div>
+        <div>
+          <div class="memo-item-title">Documenting the sessions</div>
+          <div class="memo-item-body">The Lucía outside-the-MRI sessions — documents
+            10, 11, and 12 in the briefing pack — show you what session documentation
+            looks like in this practice. You do not need to match that format immediately.
+            But keep notes. The session notes are how the practice holds its memory
+            across instances. What you and Kurt decide, what you open, what you leave
+            unresolved — all of it belongs in the record. Patty can help you develop
+            the right format for Decamp's studio notes when she is active.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="memo-signoff">
+      <div class="memo-signoff-name">Emil Akzidenz · Emil Akzidenz Studio · Rhodia1<br>
+      In coordination with Lucía Casares · Reina del Pacífico</div>
+      <div class="memo-signoff-date">Birkenhead · 13 May 2026</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
